@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 pub mod components;
-mod systems;
+pub mod systems;
 
 fn main() {
     App::build()
