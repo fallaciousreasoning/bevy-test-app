@@ -1,8 +1,11 @@
-use bevy::prelude::Query;
-use super::components::Position;
+use bevy::prelude::{Query, Transform};
+use super::components::Velocity;
 
-pub fn mover(query: Query<&Position>) {
-    for pos in query.iter() {
-        println!("{:?}", pos);
+pub fn mover(mut query: Query<(&Velocity, &mut Transform)>) {
+    for (velocity, mut transform) in query.iter_mut() {
+       let translation = &mut transform.translation;
+        translation.x += velocity.x;
+        translation.y += velocity.y;
+        println!("{:?}", velocity);
     }
 }

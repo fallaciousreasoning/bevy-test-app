@@ -7,7 +7,7 @@ fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
         .add_startup_system(initialize_world.system())
-        // .add_system(systems::mover.system())
+        .add_system(systems::mover.system())
         .run();
 }
 
@@ -21,5 +21,5 @@ fn initialize_world(mut commands: Commands, asset_server: Res<AssetServer>, mut 
 
     commands
         .spawn()
-        .insert(components::Position { x: 6.0, y: 7.0 });
+        .insert(components::Velocity { x: 1.0, y: 0.0 });
 }
