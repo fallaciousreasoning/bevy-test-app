@@ -17,9 +17,5 @@ fn initialize_world(mut commands: Commands, asset_server: Res<AssetServer>, mut 
     commands.spawn_bundle(SpriteBundle {
         material: materials.add(texture_handle.into()),
         ..Default::default()
-    });
-
-    commands
-        .spawn()
-        .insert(components::Velocity { x: 1.0, y: 0.0 });
+    }).insert(components::Velocity { x: 1.0, y: 0.0 });
 }
