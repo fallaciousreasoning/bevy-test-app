@@ -24,6 +24,6 @@ fn initialize_world(
             material: materials.add(texture_handle.into()),
             ..Default::default()
         })
-        .insert(components::Velocity { x: 1.0, y: 0.0 })
-        .insert(components::Character { speed: 5.0 });
+        .insert(components::Velocity { x: 0.0, y: 0.0 })
+        .insert(components::Character { speed: 200.0 });
 }
