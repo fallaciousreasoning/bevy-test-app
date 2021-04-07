@@ -1,6 +1,9 @@
 use bevy::prelude::*;
 
+mod systems;
+
 fn main() {
-    App::build().run();
-    println!("Hello, world!");
+    App::build()
+        .add_system(systems::mover.system())
+        .run();
 }
