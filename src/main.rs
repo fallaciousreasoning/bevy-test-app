@@ -5,6 +5,7 @@ pub mod systems;
 
 fn main() {
     App::build()
+        .add_plugins(DefaultPlugins)
         .add_startup_system(initialize_world.system())
         .add_system(systems::mover.system())
         .run();
