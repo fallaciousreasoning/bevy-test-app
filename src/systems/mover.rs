@@ -6,6 +6,5 @@ pub fn mover(mut query: Query<(&Velocity, &mut Transform)>) {
        let translation = &mut transform.translation;
         translation.x += velocity.x;
         translation.y += velocity.y;
-        println!("{:?}", velocity);
     }
 }
