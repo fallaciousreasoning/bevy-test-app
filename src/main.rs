@@ -10,6 +10,7 @@ fn main() {
         .add_plugin(RapierPhysicsPlugin)
         .add_startup_system(initialize_world.system())
         .add_startup_system(make_wall.system())
+        .add_startup_system(make_player.system())
         .add_system(systems::mover.system())
         .add_system(systems::player_controller.system())
         .run();
@@ -19,7 +20,9 @@ fn initialize_world(mut commands: Commands, mut materials: ResMut<Assets<ColorMa
     let mut camera = OrthographicCameraBundle::new_2d();
     camera.transform.scale = Vec3::new(1.0/64.0, 1.0/64.0, 1.0);
     commands.spawn_bundle(camera);
+}
 
+fn make_player(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands
         .spawn_bundle(SpriteBundle {
             material: materials.add(Color::rgb(1.0, 0.0, 0.0).into()),
