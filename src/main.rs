@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_rapier2d::physics::RapierPhysicsPlugin;
 
 pub mod components;
 pub mod systems;
@@ -6,6 +7,7 @@ pub mod systems;
 fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
+        .add_plugin(RapierPhysicsPlugin)
         .add_startup_system(initialize_world.system())
         .add_system(systems::mover.system())
         .add_system(systems::player_controller.system())
