@@ -14,14 +14,13 @@ fn main() {
 
 fn initialize_world(
     mut commands: Commands,
-    asset_server: Res<AssetServer>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    let texture_handle = asset_server.load("square.png");
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
     commands
         .spawn_bundle(SpriteBundle {
-            material: materials.add(texture_handle.into()),
+            material: materials.add(Color::rgb(1.0, 0.0, 0.0).into()),
+            sprite: Sprite::new(Vec2::new(64.0, 64.0)),
             ..Default::default()
         })
         .insert(components::Velocity { x: 0.0, y: 0.0 })
