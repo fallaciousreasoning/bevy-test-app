@@ -15,10 +15,10 @@ pub fn player_controller(
         let y_axis = -(keyboard_input.pressed(KeyCode::S) as i8)
             + (keyboard_input.pressed(KeyCode::W) as i8);
 
-        if x_axis == 0 && y_axis == 0 {
-            continue;
+        let mut direction = Vector2::new(x_axis as f32, y_axis as f32);
+        if direction != Vector2::zeros() {
+            direction = direction.normalize() * character.speed;
         }
-        let direction = Vector2::new(x_axis as f32, y_axis as f32).normalize() * character.speed;
         if let Some(body) = rigid_bodies.get_mut(handle.handle()) {
             body.set_linvel(direction, true);
         }
