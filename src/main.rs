@@ -21,7 +21,6 @@ fn main() {
 
 fn initialize_world(
     mut commands: Commands,
-    mut materials: ResMut<Assets<ColorMaterial>>,
     mut rapier_config: ResMut<RapierConfiguration>,
 ) {
     rapier_config.scale = 1.0;
