@@ -22,15 +22,33 @@ fn main() {
 fn initialize_world(
     mut commands: Commands,
     mut rapier_config: ResMut<RapierConfiguration>,
-    materials: ResMut<Assets<ColorMaterial>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     rapier_config.scale = 1.0;
     rapier_config.gravity = Vector2::zeros();
     let mut camera = OrthographicCameraBundle::new_2d();
     camera.transform.scale = Vec3::new(1.0 / 64.0, 1.0 / 64.0, 1.0);
     commands.spawn_bundle(camera);
-
-    make_box(1.0, 4.0, 4.0, 0.0, true, commands, materials)
+    
+    let width = 1.0;
+    let height = 4.0;
+    let x = 4.0;
+    let y = 4.0;
+    let dynamic = true;
+    let body = if dynamic {
+        RigidBodyBuilder::new_dynamic()
+    } else {
+        RigidBodyBuilder::new_static()
+    }.translation(x, y);
+    let collider = ColliderBuilder::cuboid(width / 2.0, height / 2.0);
+    commands
+        .spawn_bundle(SpriteBundle {
+            material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
+            sprite: Sprite::new(Vec2::new(width, height)),
+            ..Default::default()
+        })
+        .insert(body)
+        .insert(collider);
 }
 
 fn make_player(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
@@ -55,8 +73,9 @@ fn make_box(
     y: f32,
     dynamic: bool,
     mut commands: Commands,
-    mut materials: ResMut<Assets<ColorMaterial>>,
+    materials: &ResMut<Assets<ColorMaterial>>,
 ) {
+    let mut materials = materials;
     let body = if dynamic {
         RigidBodyBuilder::new_dynamic()
     } else {
@@ -74,5 +93,5 @@ fn make_box(
 }
 
 fn make_walls(commands: Commands, materials: ResMut<Assets<ColorMaterial>>) {
-    make_box(1.0, 1000.0, -10.0, 0.0, false, commands, materials);
+    make_box(1.0, 1000.0, -10.0, 0.0, false, commands, &materials);
 }
