@@ -1,4 +1,4 @@
-use bevy::{prelude::{Query, Transform, Res, Time}, window::Windows};
+use bevy::{prelude::{Query, Transform, Res}, window::Windows};
 
 use crate::components::OnMouse;
 
@@ -9,7 +9,7 @@ pub fn on_mouse(windows: Res<Windows>, mut query: Query<(&OnMouse, &mut Transfor
         return;
     } / 64.;
 
-    for (mouse, mut transform) in query.iter_mut() {
+    for (_mouse, mut transform) in query.iter_mut() {
         transform.translation.x = mouse_position.x;
         transform.translation.y = mouse_position.y;
     }
