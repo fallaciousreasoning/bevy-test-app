@@ -24,7 +24,6 @@ fn main() {
 fn initialize_world(
     mut commands: Commands,
     mut rapier_config: ResMut<RapierConfiguration>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     rapier_config.scale = 1.0;
     rapier_config.gravity = Vector2::zeros();
@@ -32,25 +31,10 @@ fn initialize_world(
     camera.transform.scale = Vec3::new(1.0 / 64.0, 1.0 / 64.0, 1.0);
     commands.spawn_bundle(camera);
     
-    let width = 1.0;
-    let height = 4.0;
-    let x = 4.0;
-    let y = 4.0;
-    let dynamic = true;
-    let body = if dynamic {
-        RigidBodyBuilder::new_dynamic()
-    } else {
-        RigidBodyBuilder::new_static()
-    }.translation(x, y);
-    let collider = ColliderBuilder::cuboid(width / 2.0, height / 2.0);
-    commands
-        .spawn_bundle(SpriteBundle {
-            material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
-            sprite: Sprite::new(Vec2::new(width, height)),
-            ..Default::default()
-        })
-        .insert(body)
-        .insert(collider);
+    spawn_box(&mut commands, BoxConfig {
+        dynamic: true,
+        ..Default::default()
+    });
 }
 
 fn make_player(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {

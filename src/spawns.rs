@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_rapier2d::rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder};
 
+#[derive(Default)]
 pub struct BoxConfig {
     pub dynamic: bool,
     pub position: Vec2,
