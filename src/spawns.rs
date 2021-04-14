@@ -20,6 +20,7 @@ pub fn spawn_box(commands: &mut Commands, config: BoxConfig) {
     
     commands.spawn_bundle(SpriteBundle {
         material: config.material,
+        sprite: Sprite::new(size),
         transform: Transform::from_xyz(config.position.x, config.position.y, 0.),
         ..Default::default()
     })
