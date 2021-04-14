@@ -4,8 +4,10 @@ use bevy_rapier2d::{
     physics::{RapierConfiguration, RapierPhysicsPlugin},
     rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
 };
+use spawns::{BoxConfig, spawn_box};
 pub mod components;
 pub mod systems;
+pub mod spawns;
 
 fn main() {
     App::build()
@@ -66,32 +68,33 @@ fn make_player(mut commands: Commands, mut materials: ResMut<Assets<ColorMateria
         .insert(collider);
 }
 
-fn make_box(
-    width: f32,
-    height: f32,
-    x: f32,
-    y: f32,
-    dynamic: bool,
-    mut commands: Commands,
-    materials: &ResMut<Assets<ColorMaterial>>,
-) {
-    let mut materials = materials;
-    let body = if dynamic {
-        RigidBodyBuilder::new_dynamic()
-    } else {
-        RigidBodyBuilder::new_static()
-    }.translation(x, y);
-    let collider = ColliderBuilder::cuboid(width / 2.0, height / 2.0);
-    commands
-        .spawn_bundle(SpriteBundle {
-            material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
-            sprite: Sprite::new(Vec2::new(width, height)),
-            ..Default::default()
-        })
-        .insert(body)
-        .insert(collider);
-}
+fn make_walls(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
+    let wall_material = materials.add(Color::WHITE.into());
+    spawn_box(&mut commands, BoxConfig {
+        dynamic: false,
+        material: wall_material.clone(),
+        position: Vec2::new(-10., 0.),
+        size: Some(Vec2::new(1., 1000.))
+    });
 
-fn make_walls(commands: Commands, materials: ResMut<Assets<ColorMaterial>>) {
-    make_box(1.0, 1000.0, -10.0, 0.0, false, commands, &materials);
+    spawn_box(&mut commands, BoxConfig {
+        dynamic: false,
+        material: wall_material.clone(),
+        position: Vec2::new(10., 0.),
+        size: Some(Vec2::new(1., 1000.))
+    });
+
+    spawn_box(&mut commands, BoxConfig {
+        dynamic: false,
+        material: wall_material.clone(),
+        position: Vec2::new(0., -6.),
+        size: Some(Vec2::new(1000., 1.))
+    });
+
+    spawn_box(&mut commands, BoxConfig {
+        dynamic: false,
+        material: wall_material.clone(),
+        position: Vec2::new(0., 6.),
+        size: Some(Vec2::new(1000., 1.))
+    });
 }
