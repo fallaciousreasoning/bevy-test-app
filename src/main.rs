@@ -4,10 +4,13 @@ use bevy_rapier2d::{
     physics::{RapierConfiguration, RapierPhysicsPlugin},
     rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
 };
-use spawns::{BoxConfig, spawn_box};
+
 pub mod components;
 pub mod systems;
 pub mod spawns;
+
+use components::OnMouse;
+use spawns::{spawn_box, BoxConfig};
 
 fn main() {
     App::build()
@@ -18,6 +21,7 @@ fn main() {
         .add_startup_system(make_player.system())
         .add_system(systems::mover.system())
         .add_system(systems::player_controller.system())
+        .add_system(systems::on_mouse.system())
         .run();
 }
 
@@ -35,6 +39,11 @@ fn initialize_world(
         dynamic: true,
         ..Default::default()
     });
+
+    commands.spawn_bundle(SpriteBundle {
+        sprite: Sprite::new(Vec2::new(1., 1.)),
+        ..Default::default()
+    }).insert(OnMouse);
 }
 
 fn make_player(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
