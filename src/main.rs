@@ -30,7 +30,6 @@ fn initialize_world(
     mut rapier_config: ResMut<RapierConfiguration>,
 ) {
     rapier_config.scale = 1.0;
-    rapier_config.gravity = Vector2::zeros();
     let mut camera = OrthographicCameraBundle::new_2d();
     camera.transform.scale = Vec3::new(1.0 / 64.0, 1.0 / 64.0, 1.0);
     commands.spawn_bundle(camera);
