@@ -55,7 +55,7 @@ fn initialize_world(
         .insert(OnMouse)
         .id();
 
-    let body = RigidBodyBuilder::new_dynamic();
+    let body = RigidBodyBuilder::new_dynamic().lock_rotations();
     let collider = ColliderBuilder::cuboid(0.5, 0.5);
     let player_id = commands
         .spawn_bundle(SpriteBundle {

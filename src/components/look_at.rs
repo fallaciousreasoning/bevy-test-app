@@ -1,3 +1,3 @@
-use bevy::{math::Vec3, prelude::Entity};
+use bevy::{prelude::Entity};
 
 pub struct LookAt(pub Entity);
