@@ -22,6 +22,7 @@ fn main() {
         .add_system(systems::mover.system())
         .add_system(systems::player_controller.system())
         .add_system(systems::on_mouse.system())
+        .add_system(systems::look_at.system())
         .run();
 }
 
@@ -53,7 +54,7 @@ fn initialize_world(
         })
         .insert(OnMouse)
         .id();
-    
+
     let body = RigidBodyBuilder::new_dynamic();
     let collider = ColliderBuilder::cuboid(0.5, 0.5);
     let player_id = commands
@@ -66,13 +67,13 @@ fn initialize_world(
         .insert(components::Character { speed: 10.0 })
         .insert(body)
         .insert(collider)
-        .insert(components::LookAt(cursor_id))
+        .insert(components::LookAt::new(cursor_id))
         .id();
 
     commands.insert_resource(WorldInfo {
         camera: cursor_id,
         cursor: camera_id,
-        player: player_id
+        player: player_id,
     });
 }
 
