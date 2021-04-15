@@ -67,7 +67,7 @@ fn initialize_world(
         .insert(components::Character { speed: 10.0 })
         .insert(body)
         .insert(collider)
-        .insert(components::LookAt::new(cursor_id))
+        .insert(components::LookAt(cursor_id))
         .id();
 
     commands.insert_resource(WorldInfo {
