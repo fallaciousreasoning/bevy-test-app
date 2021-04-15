@@ -1,1 +1,3 @@
-pub struct LookAt(i32);
+use bevy::prelude::Entity;
+
+pub struct LookAt(pub Entity);
