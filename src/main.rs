@@ -19,7 +19,6 @@ fn main() {
         .add_plugin(RapierPhysicsPlugin)
         .add_startup_system(initialize_world.system())
         .add_startup_system(make_walls.system())
-        .add_system(systems::mover.system())
         .add_system(systems::player_controller.system())
         .add_system(systems::on_mouse.system())
         .add_system(systems::look_at.system())
@@ -63,7 +62,6 @@ fn initialize_world(
             sprite: Sprite::new(Vec2::new(1.0, 1.0)),
             ..Default::default()
         })
-        .insert(components::Velocity { x: 0.0, y: 0.0 })
         .insert(components::Character { speed: 10.0 })
         .insert(body)
         .insert(collider)
